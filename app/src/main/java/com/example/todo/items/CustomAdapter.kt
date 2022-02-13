@@ -59,7 +59,7 @@ class CustomAdapter(private var dataSet: MutableList<String>) :
         dataSet.removeAt(index)
         notifyItemRemoved(index);
         notifyItemRangeChanged(index,dataSet.size);
-    }
+    }//
 
     fun addItem() {
         dataSet.add("")
