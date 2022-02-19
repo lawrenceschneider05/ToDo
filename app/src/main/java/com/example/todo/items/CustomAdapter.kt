@@ -22,11 +22,13 @@ class CustomAdapter(private var dataSet: MutableList<String>) :
      */
     // TODO: instead of array of string, make it of map of id to string
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val buttonView: android.widget.Button
         val textView: android.widget.TextView
 
         init {
             // Define click listener for the ViewHolder's View.
-            textView = view.findViewById(R.id.item_description)
+            buttonView = view.findViewById(R.id.done_button)
+            textView = view.findViewById(R.id.item_text)
         }
 
     }
@@ -49,7 +51,10 @@ class CustomAdapter(private var dataSet: MutableList<String>) :
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         viewHolder.textView.text = dataSet[position]
-        viewHolder.textView.setOnClickListener { textViewClick(viewHolder.textView) }
+        viewHolder.buttonView.setOnClickListener {
+            Toast.makeText(viewHolder.textView.context, viewHolder.textView.text.toString(), Toast.LENGTH_SHORT).show()
+            deleteItem(position)
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -59,7 +64,7 @@ class CustomAdapter(private var dataSet: MutableList<String>) :
         dataSet.removeAt(index)
         notifyItemRemoved(index);
         notifyItemRangeChanged(index,dataSet.size);
-    }//
+    }
 
     fun addItem() {
         dataSet.add("")
@@ -68,9 +73,5 @@ class CustomAdapter(private var dataSet: MutableList<String>) :
 
     fun setText(viewHolder: CustomAdapter.ViewHolder) {
         dataSet[viewHolder.adapterPosition] = viewHolder.textView.text.toString()
-    }
-
-    fun textViewClick(view: View) {
-        Toast.makeText(view.context, "TODO: New activity", Toast.LENGTH_SHORT).show()
     }
 }

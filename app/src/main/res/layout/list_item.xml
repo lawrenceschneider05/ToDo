@@ -9,12 +9,19 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
         <TextView
-            android:id="@+id/item_description"
-            android:layout_width="match_parent"
+            android:id="@+id/item_text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="16dp" />
+            android:hint="text">
+        </TextView>
+
+        <Button
+            android:id="@+id/done_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="DONE"/>
 
     </LinearLayout>
 
