@@ -23,7 +23,7 @@ class CustomAdapter(private var dataSet: MutableList<String>) :
     // TODO: instead of array of string, make it of map of id to string
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val buttonView: android.widget.Button
-        val textView: android.widget.TextView
+        val textView: com.google.android.material.textfield.TextInputEditText
 
         init {
             // Define click listener for the ViewHolder's View.
@@ -48,11 +48,23 @@ class CustomAdapter(private var dataSet: MutableList<String>) :
         @SuppressLint("RecyclerView") position: Int
     ) {
 
-        // Get element from your dataset at this position and replace the
+        // Get element from your dataset at this position and                                                                                                                                                                                                                                        replace the
         // contents of the view with that element
-        viewHolder.textView.text = dataSet[position]
+        viewHolder.textView.setText(dataSet[position])
+        viewHolder.textView.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                //Toast.makeText(viewHolder.textView.context, viewHolder.textView.text.toString(), Toast.LENGTH_SHORT).show()
+                dataSet[viewHolder.adapterPosition] = s.toString()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
         viewHolder.buttonView.setOnClickListener {
-            Toast.makeText(viewHolder.textView.context, viewHolder.textView.text.toString(), Toast.LENGTH_SHORT).show()
+            //Toast.makeText(viewHolder.textView.context, viewHolder.textView.text.toString(), Toast.LENGTH_SHORT).show()
             deleteItem(position)
         }
     }
